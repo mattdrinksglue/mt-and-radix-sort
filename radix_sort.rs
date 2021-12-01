@@ -8,6 +8,9 @@ const VAL_1: Wrapping<u32> = Wrapping(0x80000000);
 const VAL_2: Wrapping<u32> = Wrapping(0x7fffffff);
 const VAL_3: Wrapping<u32> = Wrapping(0x9908b0df);
 
+// TODO: find out why bitmask version runs slow
+// TODO: make code look nicer and reduce number of copied arrays
+// TODO: impl bucket sort version of radix sort
 
 struct MT {
     state: [Wrapping<u32>; STATE_SIZE],
@@ -144,7 +147,6 @@ fn radix_sort_16(arr: Vec<u32>) -> Vec<u32> {
     let mut digit = 0;
     while digit < 8 && u64::from(max) > 16_u64.pow(digit) {
         let len = output.len();
-        println!("Beginning csort: {}", 16_u32.pow(digit));
         output = counting_sort_16(&mut output, len, digit);
         digit += 1;
     }
@@ -191,7 +193,6 @@ fn radix_sort_bitmask(arr: Vec<u32>, exp: u32) -> Vec<u32> {
     let mut digit = 0;
     while digit < (32 / exp - 1) && max > base_exp.pow(digit) {
         let len = output.len();
-        println!("Beginning csort: {}", base_exp.pow(digit));
         output = counting_sort_bitmask(&mut output, len, base_exp.pow(digit));
         digit += 1;
     }
