@@ -11,6 +11,7 @@ const VAL_3: Wrapping<u32> = Wrapping(0x9908b0df);
 // TODO: find out why bitmask version runs slow
 // TODO: make code look nicer and reduce number of copied arrays
 // TODO: impl bucket sort version of radix sort
+// TODO: make sort over generic types
 
 struct MT {
     state: [Wrapping<u32>; STATE_SIZE],
